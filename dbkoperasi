@@ -1,0 +1,253 @@
+-- --------------------------------------------------------
+-- Host:                         127.0.0.1
+-- Server version:               10.4.11-MariaDB - Source distribution
+-- Server OS:                    Linux
+-- HeidiSQL Version:             12.5.0.6677
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+-- Dumping structure for view dbkoperasi.q_angsuran
+-- Creating temporary table to overcome VIEW dependency errors
+CREATE TABLE `q_angsuran` (
+	`id` INT(11) NOT NULL,
+	`id_pinjaman` INT(11) NULL,
+	`tanggal` VARCHAR(10) NULL COLLATE 'utf8mb4_general_ci',
+	`tgl` DATE NULL,
+	`angsuran_ke` INT(2) NULL,
+	`jumlah_angsuran` DOUBLE NULL,
+	`nama_karyawan` VARCHAR(50) NULL COLLATE 'utf8mb4_general_ci',
+	`nik_karyawan` VARCHAR(16) NULL COLLATE 'utf8mb4_general_ci',
+	`tanggal_pinjaman` VARCHAR(10) NULL COLLATE 'utf8mb4_general_ci',
+	`jumlah_pinjaman` DOUBLE NULL,
+	`jumlah_angsuran_pokok` DOUBLE NULL
+) ENGINE=MyISAM;
+
+-- Dumping structure for view dbkoperasi.q_pinjaman
+-- Creating temporary table to overcome VIEW dependency errors
+CREATE TABLE `q_pinjaman` (
+	`id` INT(11) NOT NULL,
+	`id_anggota` INT(11) NULL,
+	`nama_karyawan` VARCHAR(50) NULL COLLATE 'utf8mb4_general_ci',
+	`nik_karyawan` VARCHAR(16) NULL COLLATE 'utf8mb4_general_ci',
+	`tanggal` VARCHAR(10) NULL COLLATE 'utf8mb4_general_ci',
+	`tgl` DATE NULL,
+	`jumlah_pinjaman` DOUBLE NULL,
+	`tenor` DOUBLE NULL,
+	`bunga` DOUBLE NULL,
+	`jumlah_angsuran` DOUBLE NULL,
+	`jumlah_pinjaman_bunga` DOUBLE NULL,
+	`jumlah_angsuran_pokok` DOUBLE NULL
+) ENGINE=MyISAM;
+
+-- Dumping structure for view dbkoperasi.q_simpanan
+-- Creating temporary table to overcome VIEW dependency errors
+CREATE TABLE `q_simpanan` (
+	`id` INT(11) NOT NULL,
+	`id_anggota` INT(11) NULL,
+	`nama_karyawan` VARCHAR(50) NULL COLLATE 'utf8mb4_general_ci',
+	`nik_karyawan` VARCHAR(16) NULL COLLATE 'utf8mb4_general_ci',
+	`tanggal` VARCHAR(10) NULL COLLATE 'utf8mb4_general_ci',
+	`tgl` DATE NULL,
+	`jumlah` DOUBLE NULL,
+	`urut` INT(1) NOT NULL,
+	`status` VARCHAR(17) NOT NULL COLLATE 'utf8mb4_general_ci'
+) ENGINE=MyISAM;
+
+-- Dumping structure for view dbkoperasi.q_simpananpokok
+-- Creating temporary table to overcome VIEW dependency errors
+CREATE TABLE `q_simpananpokok` (
+	`id` INT(11) NOT NULL,
+	`id_anggota` INT(11) NULL,
+	`nama_karyawan` VARCHAR(50) NULL COLLATE 'utf8mb4_general_ci',
+	`nik_karyawan` VARCHAR(16) NULL COLLATE 'utf8mb4_general_ci',
+	`tanggal` VARCHAR(10) NULL COLLATE 'utf8mb4_general_ci',
+	`tgl` DATE NULL,
+	`jumlah` DOUBLE NULL
+) ENGINE=MyISAM;
+
+-- Dumping structure for view dbkoperasi.q_simpanansukarela
+-- Creating temporary table to overcome VIEW dependency errors
+CREATE TABLE `q_simpanansukarela` (
+	`id` INT(11) NOT NULL,
+	`id_anggota` INT(11) NULL,
+	`nama_karyawan` VARCHAR(50) NULL COLLATE 'utf8mb4_general_ci',
+	`nik_karyawan` VARCHAR(16) NULL COLLATE 'utf8mb4_general_ci',
+	`tanggal` VARCHAR(10) NULL COLLATE 'utf8mb4_general_ci',
+	`tgl` DATE NULL,
+	`jumlah` DOUBLE NULL
+) ENGINE=MyISAM;
+
+-- Dumping structure for view dbkoperasi.q_simpananwajib
+-- Creating temporary table to overcome VIEW dependency errors
+CREATE TABLE `q_simpananwajib` (
+	`id` INT(11) NOT NULL,
+	`id_anggota` INT(11) NULL,
+	`nama_karyawan` VARCHAR(50) NULL COLLATE 'utf8mb4_general_ci',
+	`nik_karyawan` VARCHAR(16) NULL COLLATE 'utf8mb4_general_ci',
+	`tanggal` VARCHAR(10) NULL COLLATE 'utf8mb4_general_ci',
+	`tgl` DATE NULL,
+	`jumlah` DOUBLE NULL
+) ENGINE=MyISAM;
+
+-- Dumping structure for table dbkoperasi.tb_anggota
+CREATE TABLE IF NOT EXISTS `tb_anggota` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nama_karyawan` varchar(50) DEFAULT NULL,
+  `nik_karyawan` varchar(16) DEFAULT NULL,
+  `divisi` varchar(16) DEFAULT NULL,
+  `echelon` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
+
+-- Dumping data for table dbkoperasi.tb_anggota: ~6 rows (approximately)
+INSERT INTO `tb_anggota` (`id`, `nama_karyawan`, `nik_karyawan`, `divisi`, `echelon`) VALUES
+	(3, 'Muhammad Nirson', '200700429', 'Division V', '-'),
+	(4, 'Purnomo', '200901391', 'Division I', '-'),
+	(5, 'Amirul Bahar', '202100141', 'Division II', '-'),
+	(6, 'Siswanto', '200901362', 'Division III', '-'),
+	(7, 'Anton Dwi Ariyanto', '200801156', 'Division I', '-'),
+	(8, 'Budi', '123456', 'Divisi I', 'Echelon II');
+
+-- Dumping structure for table dbkoperasi.tb_angsuran
+CREATE TABLE IF NOT EXISTS `tb_angsuran` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_pinjaman` int(11) DEFAULT NULL,
+  `tanggal` date DEFAULT NULL,
+  `angsuran_ke` int(2) DEFAULT NULL,
+  `jumlah_angsuran` double DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+
+-- Dumping data for table dbkoperasi.tb_angsuran: ~3 rows (approximately)
+INSERT INTO `tb_angsuran` (`id`, `id_pinjaman`, `tanggal`, `angsuran_ke`, `jumlah_angsuran`) VALUES
+	(3, 3, '2023-12-04', 1, 350000),
+	(4, 3, '2024-01-02', 2, 350000),
+	(6, 6, '2023-12-04', 1, 168750);
+
+-- Dumping structure for table dbkoperasi.tb_pinjaman
+CREATE TABLE IF NOT EXISTS `tb_pinjaman` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_anggota` int(11) DEFAULT NULL,
+  `tanggal` date DEFAULT NULL,
+  `jumlah_pinjaman` double DEFAULT NULL,
+  `tenor` double DEFAULT NULL,
+  `bunga` double DEFAULT NULL,
+  `jumlah_angsuran` double DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+
+-- Dumping data for table dbkoperasi.tb_pinjaman: ~4 rows (approximately)
+INSERT INTO `tb_pinjaman` (`id`, `id_anggota`, `tanggal`, `jumlah_pinjaman`, `tenor`, `bunga`, `jumlah_angsuran`) VALUES
+	(3, 3, '2023-11-01', 3000000, 10, 0.1, 350000),
+	(4, 4, '2023-11-04', 5000000, 10, 0.1, 550000),
+	(5, 8, '2024-01-01', 1000000, 5, 0.1, 270000),
+	(6, 6, '2023-11-01', 1500000, 10, 1.25, 168750);
+
+-- Dumping structure for table dbkoperasi.tb_simpananpokok
+CREATE TABLE IF NOT EXISTS `tb_simpananpokok` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_anggota` int(11) DEFAULT NULL,
+  `tanggal` date DEFAULT NULL,
+  `jumlah` double DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
+
+-- Dumping data for table dbkoperasi.tb_simpananpokok: ~5 rows (approximately)
+INSERT INTO `tb_simpananpokok` (`id`, `id_anggota`, `tanggal`, `jumlah`) VALUES
+	(5, 3, '2023-11-04', 150000),
+	(6, 4, '2023-11-05', 150000),
+	(7, 5, '2023-11-06', 150000),
+	(8, 6, '2023-11-07', 150000),
+	(9, 7, '2023-11-08', 150000);
+
+-- Dumping structure for table dbkoperasi.tb_simpanansukarela
+CREATE TABLE IF NOT EXISTS `tb_simpanansukarela` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_anggota` int(11) DEFAULT NULL,
+  `tanggal` date DEFAULT NULL,
+  `jumlah` double DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+
+-- Dumping data for table dbkoperasi.tb_simpanansukarela: ~2 rows (approximately)
+INSERT INTO `tb_simpanansukarela` (`id`, `id_anggota`, `tanggal`, `jumlah`) VALUES
+	(5, 8, '2024-01-20', 150000),
+	(6, 8, '2024-01-20', 150000);
+
+-- Dumping structure for table dbkoperasi.tb_simpananwajib
+CREATE TABLE IF NOT EXISTS `tb_simpananwajib` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_anggota` int(11) DEFAULT NULL,
+  `tanggal` date DEFAULT NULL,
+  `jumlah` double DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
+
+-- Dumping data for table dbkoperasi.tb_simpananwajib: ~5 rows (approximately)
+INSERT INTO `tb_simpananwajib` (`id`, `id_anggota`, `tanggal`, `jumlah`) VALUES
+	(4, 3, '2023-12-11', 50000),
+	(5, 4, '2023-12-12', 50000),
+	(6, 5, '2023-12-13', 50000),
+	(7, 6, '2023-12-13', 50000),
+	(8, 7, '2023-12-14', 50000);
+
+-- Dumping structure for table dbkoperasi.tb_users
+CREATE TABLE IF NOT EXISTS `tb_users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `full_name` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` text NOT NULL,
+  `level` enum('Admin','Guru','Siswa','Wali') NOT NULL,
+  `status` int(1) NOT NULL DEFAULT 1,
+  `remember_me` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+
+-- Dumping data for table dbkoperasi.tb_users: ~1 rows (approximately)
+INSERT INTO `tb_users` (`id`, `full_name`, `email`, `username`, `password`, `level`, `status`, `remember_me`) VALUES
+	(2, 'Administrator', 'administrator@gmail.com', 'Admin', '$2y$10$hiDi35wZADvgbSrWECnRaOqyBPVZxpNaYCcblmGfzXA3ho2tS.sTy', 'Admin', 1, 'PuRrF2IySPM5nDZ8NGvbwlYHkFB5O98sgJad7UGW0Q3JHVAjf4ymx7x6YsRcpu96');
+
+-- Dumping structure for view dbkoperasi.q_angsuran
+-- Removing temporary table and create final VIEW structure
+DROP TABLE IF EXISTS `q_angsuran`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `q_angsuran` AS select `a`.`id` AS `id`,`a`.`id_pinjaman` AS `id_pinjaman`,date_format(`a`.`tanggal`,'%d/%m/%Y') AS `tanggal`,`a`.`tanggal` AS `tgl`,`a`.`angsuran_ke` AS `angsuran_ke`,`a`.`jumlah_angsuran` AS `jumlah_angsuran`,`b`.`nama_karyawan` AS `nama_karyawan`,`b`.`nik_karyawan` AS `nik_karyawan`,`b`.`tanggal` AS `tanggal_pinjaman`,`b`.`jumlah_pinjaman` AS `jumlah_pinjaman`,`b`.`jumlah_angsuran_pokok` AS `jumlah_angsuran_pokok` from (`tb_angsuran` `a` left join `q_pinjaman` `b` on(`b`.`id` = `a`.`id_pinjaman`));
+
+-- Dumping structure for view dbkoperasi.q_pinjaman
+-- Removing temporary table and create final VIEW structure
+DROP TABLE IF EXISTS `q_pinjaman`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `q_pinjaman` AS select `a`.`id` AS `id`,`a`.`id_anggota` AS `id_anggota`,`b`.`nama_karyawan` AS `nama_karyawan`,`b`.`nik_karyawan` AS `nik_karyawan`,date_format(`a`.`tanggal`,'%d/%m/%Y') AS `tanggal`,`a`.`tanggal` AS `tgl`,`a`.`jumlah_pinjaman` AS `jumlah_pinjaman`,`a`.`tenor` AS `tenor`,`a`.`bunga` AS `bunga`,`a`.`jumlah_angsuran` AS `jumlah_angsuran`,`a`.`jumlah_angsuran` * `a`.`tenor` AS `jumlah_pinjaman_bunga`,`a`.`jumlah_pinjaman` / `a`.`tenor` AS `jumlah_angsuran_pokok` from (`tb_pinjaman` `a` left join `tb_anggota` `b` on(`b`.`id` = `a`.`id_anggota`));
+
+-- Dumping structure for view dbkoperasi.q_simpanan
+-- Removing temporary table and create final VIEW structure
+DROP TABLE IF EXISTS `q_simpanan`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `q_simpanan` AS select `q_simpananpokok`.`id` AS `id`,`q_simpananpokok`.`id_anggota` AS `id_anggota`,`q_simpananpokok`.`nama_karyawan` AS `nama_karyawan`,`q_simpananpokok`.`nik_karyawan` AS `nik_karyawan`,`q_simpananpokok`.`tanggal` AS `tanggal`,`q_simpananpokok`.`tgl` AS `tgl`,`q_simpananpokok`.`jumlah` AS `jumlah`,1 AS `urut`,'Simpanan Pokok' AS `status` from `q_simpananpokok` union all select `q_simpanansukarela`.`id` AS `id`,`q_simpanansukarela`.`id_anggota` AS `id_anggota`,`q_simpanansukarela`.`nama_karyawan` AS `nama_karyawan`,`q_simpanansukarela`.`nik_karyawan` AS `nik_karyawan`,`q_simpanansukarela`.`tanggal` AS `tanggal`,`q_simpanansukarela`.`tgl` AS `tgl`,`q_simpanansukarela`.`jumlah` AS `jumlah`,3 AS `urut`,'Simpanan Sukarela' AS `status` from `q_simpanansukarela` union all select `q_simpananwajib`.`id` AS `id`,`q_simpananwajib`.`id_anggota` AS `id_anggota`,`q_simpananwajib`.`nama_karyawan` AS `nama_karyawan`,`q_simpananwajib`.`nik_karyawan` AS `nik_karyawan`,`q_simpananwajib`.`tanggal` AS `tanggal`,`q_simpananwajib`.`tgl` AS `tgl`,`q_simpananwajib`.`jumlah` AS `jumlah`,2 AS `urut`,'Simpanan Wajib' AS `status` from `q_simpananwajib`;
+
+-- Dumping structure for view dbkoperasi.q_simpananpokok
+-- Removing temporary table and create final VIEW structure
+DROP TABLE IF EXISTS `q_simpananpokok`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `q_simpananpokok` AS select `a`.`id` AS `id`,`a`.`id_anggota` AS `id_anggota`,`b`.`nama_karyawan` AS `nama_karyawan`,`b`.`nik_karyawan` AS `nik_karyawan`,date_format(`a`.`tanggal`,'%d/%m/%Y') AS `tanggal`,`a`.`tanggal` AS `tgl`,`a`.`jumlah` AS `jumlah` from (`tb_simpananpokok` `a` left join `tb_anggota` `b` on(`b`.`id` = `a`.`id_anggota`));
+
+-- Dumping structure for view dbkoperasi.q_simpanansukarela
+-- Removing temporary table and create final VIEW structure
+DROP TABLE IF EXISTS `q_simpanansukarela`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `q_simpanansukarela` AS select `a`.`id` AS `id`,`a`.`id_anggota` AS `id_anggota`,`b`.`nama_karyawan` AS `nama_karyawan`,`b`.`nik_karyawan` AS `nik_karyawan`,date_format(`a`.`tanggal`,'%d/%m/%Y') AS `tanggal`,`a`.`tanggal` AS `tgl`,`a`.`jumlah` AS `jumlah` from (`tb_simpanansukarela` `a` left join `tb_anggota` `b` on(`b`.`id` = `a`.`id_anggota`));
+
+-- Dumping structure for view dbkoperasi.q_simpananwajib
+-- Removing temporary table and create final VIEW structure
+DROP TABLE IF EXISTS `q_simpananwajib`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `q_simpananwajib` AS select `a`.`id` AS `id`,`a`.`id_anggota` AS `id_anggota`,`b`.`nama_karyawan` AS `nama_karyawan`,`b`.`nik_karyawan` AS `nik_karyawan`,date_format(`a`.`tanggal`,'%d/%m/%Y') AS `tanggal`,`a`.`tanggal` AS `tgl`,`a`.`jumlah` AS `jumlah` from (`tb_simpananwajib` `a` left join `tb_anggota` `b` on(`b`.`id` = `a`.`id_anggota`));
+
+/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
